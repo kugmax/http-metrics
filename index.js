@@ -1,21 +1,26 @@
-const AWS = require('aws-sdk')
-const axios = require('axios')
-
-const serviceName = process.env.SERVICE_NAME
-const url = process.env.url
-
-const cloudWatch = new AWS.CloudWatch();
-
 exports.handler = async event => {
-  
-  const startTime = timeInMs()
+
+  const AWS = require('aws-sdk');
+  const axios = require('axios');
+
+  const serviceName = process.env.SERVICE_NAME;
+  const url = process.env.url;
+
+  console.log('serviceName: ', serviceName);
+  console.log('url: ', url);
+
+  const cloudWatch = new AWS.CloudWatch();
+
+  const startTime = timeInMs();
   const resp = await axios.get(url);
   const endTime = timeInMs();
 
-  const value = endTime - startTime;
-  const metricName = resp.status < 100 ? 'Success' : 'Failure'
+  console.log('resp.status: ', resp.status);
 
-  await cloudwatch.putMetricData({
+  const value = endTime - startTime;
+  const metricName = resp.status == 200 ? 'Success' : 'Failure'
+
+  await cloudWatch.putMetricData({
     MetricData: [ // A list of data points to send
       {
         MetricName: metricName, // Name of a metric
