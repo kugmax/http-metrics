@@ -2,24 +2,25 @@
     "Version": "2012-10-17",
     "Statement": [
         {
-            "Effect": "Allow",
-            "Action": "logs:CreateLogGroup",
-            "Resource": "arn:aws:logs:us-east-1:*:*"
-        },
-        {
+            "Sid": "VisualEditor0",
             "Effect": "Allow",
             "Action": [
                 "logs:CreateLogStream",
                 "logs:PutLogEvents"
             ],
-            "Resource": [
-                "arn:aws:logs:us-east-1:*:log-group:/aws/lambda/chaos-monkey:*"
-            ]
+            "Resource": "arn:aws:logs:us-west-1:851165181213:log-group:/aws/lambda/http-metrics:*"
         },
         {
+            "Sid": "VisualEditor1",
             "Effect": "Allow",
             "Action": "cloudwatch:PutMetricData",
             "Resource": "*"
+        },
+        {
+            "Sid": "VisualEditor2",
+            "Effect": "Allow",
+            "Action": "logs:CreateLogGroup",
+            "Resource": "arn:aws:logs:us-west-1:*:*"
         }
     ]
 }
